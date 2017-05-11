@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd" name="myApp-izpack-installer"
+                      xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <requiredProperties>
+        <requiredProperty key="groupId">
+            <defaultValue>nc.noumea.mairie</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="appName"/>
+        <requiredProperty key="shortAppName"/>
+        <requiredProperty key="artifactId">
+            <defaultValue>${shortAppName}-installer</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="version">
+            <defaultValue>1.00.00-SNAPSHOT</defaultValue>
+        </requiredProperty>
+    </requiredProperties>
+
+    <fileSets>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>src/main/izpack</directory>
+            <includes>
+                <include>**/*.txt</include>
+                <include>**/*.xml</include>
+                <include>**/*.html</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory>src/main/izpack</directory>
+            <includes>
+                <include>**/*.ico</include>
+                <include>**/*.png</include>
+                <include>**/*.jpg</include>
+                <include>**/*.gif</include>
+            </includes>
+        </fileSet>
+        <fileSet encoding="UTF-8">
+            <directory></directory>
+            <includes>
+                <include>.gitignore</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</archetype-descriptor>

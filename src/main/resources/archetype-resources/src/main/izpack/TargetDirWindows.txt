@@ -1,0 +1,4 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+C:${symbol_escape}Program Files${symbol_escape}Applications Mairie${symbol_escape}

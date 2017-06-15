@@ -26,5 +26,6 @@ deploy:
   - "${RELEASE_PKG_FILE}"
   - "${RELEASE_PKG_MD5_FILE}"
   - "${RELEASE_PKG_SHA_FILE}"
+  skip_cleanup: true
   on:
     repo: DSI-Ville-Noumea/izpack-archetype

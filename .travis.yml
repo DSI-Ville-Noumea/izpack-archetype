@@ -1,0 +1,30 @@
+language: java
+jdk:
+- oraclejdk8
+cache:
+  directories:
+  - "$HOME/.m2"
+env:
+  global:
+  - secure: rv8n1LsnZAYLxX13wYScyR3/5O9hcKb4d7LlfyHMJawVNYr4EIItwf8dQ4O1ZJQTxCxKrcVYAReqJDaROeP3vdRoW1DK06UGiOBftKFpST/VWiLpf0nNDFMd11gEaJfFerxBfaPNx653DUAanILbervYL0s+5s48mkSU1pqRfTjoAdVJT4mKemWMTMJiF968VCZ9cZNgDer0sitMfeNyfhmjAoOkTgu+jCnmFQoQQsARC+3f9ZeBuXCb2g1CD7hfDx7s3gg88SheWiBoTwgd/OjFhvWwxKYcAPW5ssF1WlfgJTZmki1RXZZCBBDqv5GH3jOv53MJ3u9qzVrzebtMlkNwkgLcEFh2gVXfQNuPfIxk2nBuCLHPhO9OUk6CUn6vaw955mCWQ17OdQlDI55oLuTAs3x0wAlprGkKm0qLTIZSfI9HeKOvW+l32yZZgFHK0l8tX4OY4evna7ezsAyPQRXIWThRj2trfIZ60l0FWmqshaQy8wwMg8nqzKnrKpj0jSFMDvNrO1jZ4ERTfjtOR0J2nRCvr17RwHtJ7Us7HPuHH4aaFHMekGUIco00XY14rb80Ns7Z4NTnaPvzkr5Q4zfvi5iO0g4e1dJLaLRglo1nX88CmZjf+xhNrDro1pQFOzFhFPa4AU5IgaYNznP/wyzquYTaa71u0PGYBQH4Zms=
+  - secure: ZhyjJ8xuSqWLT2EYqyWcrOAsCUGtIQf57hpPgJkuZGVDmGqC4/xmAVSpjbqm01RjqcpIP6C6IqkdHDIzlJNTS3TKPOsox6UJO/UEeKPm6t0K1+IUjFGEJ4R81OHOJRbjqbVsF3YCpqM+VXLiXWCgQOU2f/KhbZ0nc5nAOc5CvTdC0eCMy41P9m98c8LmpYVJNGNL3MPaIukoVY31w+QbwiNcdWk8i4+/30Qe3RANUZ/HHLhrhfyzCTLv/f9ePy6ycywcqc6Y6EbiVdotEPkAM4YIzEyRMxzmb2G+7E8atpL1Wit1HYc0S8gytdfT3tFMNv019xY4+HIiofkaY7L28AeqyvCXajb+6D9rYCjppRWnm4YX1F/o6UXyt2LTDjeqc/eYzYoPkmEzyBl7weGpUtP1N+fug98pUF0eweQiI5DQmMDq11FmYyE9NSGKsUIssiv30b3p+Z/nSea290UrRz+917TnOcka7RLcDi1N71tD0iGE1epjGj0aaojJ7Y82AAUeKm6KlaGrdBrQM3u2mP7M2giQERQvtXqXW0aJWqJ9DJVCOhAzq5q/fgr4wdf3ZVhmDuriKSHnLWLZ+1h5trnsdIsa6pPipBcvf3lIo82pY+M/Kd7lgKaJgXm7yQlmH7PnG1NTqRyHYc9ZUCGeh4bGm/Y0HcnJtNxIZxeKujQ=
+before_install:
+- export TZ=Pacific/Noumea
+install: mvn clean install -DSkipTests=true -Dmaven.javadoc.skip=true -DcreateChecksum=true
+  versioneye:update
+before_deploy:
+- export RELEASE_PKG_FILE=$(ls target/*.jar)
+- export RELEASE_PKG_MD5_FILE=$(ls target/*.jar.md5)
+- export RELEASE_PKG_SHA_FILE=$(ls target/*.jar.sha1)
+- echo "deploying $RELEASE_PKG_FILE , $RELEASE_PKG_MD5_FILE , $RELEASE_PKG_SHA_FILE
+  to GitHub releases"
+deploy:
+  provider: releases
+  api_key:
+    secure: KRQYX3NCMnlY7JQGokM+kTBIn8un4+i+f1s6W8XFsydXltFyzQ3A24CflC3XJgWC95sw7BlSdkaqlDOMAq4qdY1nmNYNnG9IzKNIpzoTCrAlvB/34w+0f4Qgzc2PhkJzI9CloZB9TjnGTyPe0HoDnWA6g6yiZ/JZDoDr28IKUqqMIZ6Af6IVjK7X9PICxPi0NCnQOIMRwmkcZv7vMKHgK6IgoME4IncbjKjoKqGLRWvsE1KBMK3yBbcT+McClqlOgnXn6dDywQSQaQYnZ6uaWt/OIKhE40Vy+DpcQDFTUt6Boi1T2vV2lCZtUJOdjj3zDRemSD6ywB35aWByiDghNBSesl6nrQxaxAjbajru/cKyY1NVEjNi5mdrkrD7L00LKfbyBF6x9qA1FeoZN7VTJCQbce+X2j6BoAXZg3ExyTaEsn1X7GxPXjhU/ciT6UqX0sBYuFsXDcxyjf0KnNwrNVogITVHTPEX6FHBMDoyfUA3iTsqQCAJlqrlUbnTL2nV08+10O21ogOUMMw7kYjatSHyQgsnikjxQV8y8SvEgexkglQz1X7K3jZkg7+XVAvetU9yWSJgU3S++0NfPjFg3pXOt3mHWUYf/2vzQxSJKaIaFh6Dgfcn4yJd/CFpFkpvfN3LfMY90Tepmtd4LXEgWVIbnry4VOzC+fMmrxy+/Sc=
+  file:
+  - "${RELEASE_PKG_FILE}"
+  - "${RELEASE_PKG_MD5_FILE}"
+  - "${RELEASE_PKG_SHA_FILE}"
+  on:
+    repo: DSI-Ville-Noumea/izpack-archetype

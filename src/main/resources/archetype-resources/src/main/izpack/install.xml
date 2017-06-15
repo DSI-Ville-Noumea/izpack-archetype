@@ -26,10 +26,10 @@
         <variable name="InstallerFrame.logfilePath" value="Default"/>
         <variable name="WELCOME_TEXT" value="${appName} installer"/>
         <variable name="WELCOME_VERSION" value="Version: 1.0.0"/>
-        <variable name="TargetPanel.dir.windows" value="C:/Program Files/"/>
+        <variable name="Application.folder" value="My Apps"/>
+        <variable name="TargetPanel.dir.windows" value="C:/Program Files/$Application.folder"/>
         <variable name="Application.name" value="${appName}"/>
         <variable name="Application.shortname" value="${shortAppName}"/>
-        <variable name="Application.folder" value="My Apps"/>
     </variables>
 
 

@@ -1,6 +1,3 @@
-#set( $symbol_pound = '#' )
-#set( $symbol_dollar = '$' )
-#set( $symbol_escape = '\' )
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <izpack:installation version="5.0"
               xmlns:izpack="http://izpack.org/schema/installation"
@@ -15,56 +12,59 @@
     </info>
 
     <resources>
-        <res id="LicencePanel.licence" src="legal/License.txt"/>
         <res id="InfoPanel.info" src="doc/Readme.txt" parse="yes"/>
         <res id="HTMLHelloPanel.welcome" src="welcome.html"/>
         <res id="HTMLInfoPanel.welcome" src="welcome.html"/>
         <res id="IZPackLogo" src="images/izpack-logo-medium.png"/>
         <res id="Installer.image" src="images/package-download_64.png"/>
         <res id="TargetPanel.dir.unix" src="TargetDirUnix.txt"/>
+        <res id="shortcutSpec.xml" src="shortcutSpec.xml" />
+        <res id="LicencePanel.licence" src="legal/License.txt"/>
     </resources>
 
     <variables>
         <variable name="InstallerFrame.logfilePath" value="Default"/>
         <variable name="WELCOME_TEXT" value="${appName} installer"/>
         <variable name="WELCOME_VERSION" value="Version: 1.0.0"/>
-        <variable name="TargetPanel.dir.windows" value="C:${symbol_escape}Program Files${symbol_escape}"/>
+        <variable name="TargetPanel.dir.windows" value="C:/Program Files/"/>
         <variable name="Application.name" value="${appName}"/>
         <variable name="Application.shortname" value="${shortAppName}"/>
+        <variable name="Application.folder" value="My Apps"/>
     </variables>
 
 
 
     <guiprefs width="800" height="600" resizable="no">
-        <splash>${symbol_dollar}{Installer.image}</splash>
-        <laf name="substance">
-            <os family="windows" />
-            <os family="unix" />
-            <param name="variant" value="mist-silver" />
-        </laf>
-        <laf name="substance">
-            <os family="mac" />
-            <param name="variant" value="mist-aqua" />
-        </laf>
-        <modifier key="useHeadingPanel" value="yes" />
+        <splash>${Installer.image}</splash>
     </guiprefs>
 
     <locale>
-        <langpack iso3="eng"/>
         <langpack iso3="fra"/>
     </locale>
 
     <panels>
         <panel classname="HTMLInfoPanel" id="welcome"/>
+        <panel classname="LicencePanel"     id="licence"/>
         <panel classname="TargetPanel" id="install_dir" />
-        <panel classname="PacksPanel" id="sdk_pack_select"/>
+        <panel classname="TreePacksPanel"   id="tree_pack"/>
         <panel classname="InstallPanel" id="install"/>
+        <panel classname="ShortcutPanel"    id="shortcuts"/>
         <panel classname="FinishPanel" id="finish"/>
     </panels>
     <packs>
-        <pack name="pack_1" preselected="yes" required="yes">
-            <description>My first pack</description>
-            <file src="pack1_content/smiley.gif" targetdir="${symbol_dollar}INSTALL_PATH/${symbol_dollar}Application.shortname/icons"/>
+        <pack name="parent_pack" preselected="yes" required="yes">
+            <description>My parent pack</description>
+            <file src="legal/License.txt" targetdir="$INSTALL_PATH/$Application.folder"/>
+        </pack>
+        <pack name="app_1" preselected="yes" required="yes" parent="parent_pack">
+            <description>First pack</description>
+            <file src="parent_pack/app_1/izpack.ico" targetdir="$INSTALL_PATH/$Application.folder/Apps_1/icons"/>
+            <file src="parent_pack/app_1/launch_izpack.bat"   targetdir="$INSTALL_PATH/$Application.folder/Apps_1"/>
         </pack>
     </packs>
+
+    <natives>
+        <native type="izpack" name="ShellLink.dll"/>
+        <native type="izpack" name="ShellLink_x64.dll"/>
+    </natives>
 </izpack:installation>

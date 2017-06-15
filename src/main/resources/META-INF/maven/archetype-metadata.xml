@@ -24,6 +24,8 @@
                 <include>**/*.txt</include>
                 <include>**/*.xml</include>
                 <include>**/*.html</include>
+                <include>**/*.bat</include>
+                <include>**/*.sh</include>
             </includes>
         </fileSet>
         <fileSet encoding="UTF-8">

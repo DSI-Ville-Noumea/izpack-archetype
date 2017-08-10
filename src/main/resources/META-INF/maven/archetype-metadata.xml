@@ -35,6 +35,8 @@
                 <include>**/*.png</include>
                 <include>**/*.jpg</include>
                 <include>**/*.gif</include>
+                <include>**/*.exe</include>
+                <include>**/*.ini</include>
             </includes>
         </fileSet>
         <fileSet encoding="UTF-8">

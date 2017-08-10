@@ -17,9 +17,11 @@
         <res id="HTMLInfoPanel.welcome" src="welcome.html"/>
         <res id="IZPackLogo" src="images/izpack-logo-medium.png"/>
         <res id="Installer.image" src="images/package-download_64.png"/>
-        <res id="TargetPanel.dir.unix" src="TargetDirUnix.txt"/>
         <res id="shortcutSpec.xml" src="shortcutSpec.xml" />
+        <res id="Unix_shortcutSpec.xml" src="unix_shortcutSpec.xml" />
         <res id="LicencePanel.licence" src="legal/License.txt"/>
+        <res id="conditions.xml" src="conditions.xml"/>
+        <res id="ProcessPanel.Spec.xml" src="ProcessPanel.Spec.xml"/>
     </resources>
 
     <variables>
@@ -48,6 +50,7 @@
         <panel classname="TargetPanel" id="install_dir" />
         <panel classname="TreePacksPanel"   id="tree_pack"/>
         <panel classname="InstallPanel" id="install"/>
+        <panel classname="ProcessPanel" id="process"/>
         <panel classname="ShortcutPanel"    id="shortcuts"/>
         <panel classname="FinishPanel" id="finish"/>
     </panels>
@@ -60,6 +63,14 @@
             <description>First pack</description>
             <file src="parent_pack/app_1/izpack.ico" targetdir="$INSTALL_PATH/$Application.folder/Apps_1/icons"/>
             <file src="parent_pack/app_1/launch_izpack.bat"   targetdir="$INSTALL_PATH/$Application.folder/Apps_1"/>
+        </pack>
+        <pack name="ext_pack" preselected="no" required="no">
+            <description>Pack for external applications</description>
+        </pack>
+        <pack name="firefox" preselected="no" required="no" parent="ext_pack">
+            <description>Mozilla Firefox web browser</description>
+            <file src="ext_pack/firefox/Firefox_Setup_54.0.1-fr.exe" targetdir="c:/tmp"/>
+            <file src="ext_pack/firefox/firefox_config.ini"   targetdir="c:/tmp"/>
         </pack>
     </packs>
 
